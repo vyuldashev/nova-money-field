@@ -1,6 +1,6 @@
 {
   "name": "vyuldashev/nova-money-field",
-  "description": "A Laravel Nova field.",
+  "description": "A Laravel Nova field for Money.",
   "keywords": [
     "laravel",
     "nova"
