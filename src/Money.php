@@ -2,10 +2,10 @@
 
 namespace Vyuldashev\NovaMoneyField;
 
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Money\Currencies\ISOCurrencies;
 use Money\Currency;
+use Laravel\Nova\Fields\Number;
+use Money\Currencies\ISOCurrencies;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Money extends Number
 {
@@ -25,10 +25,10 @@ class Money extends Number
         $this->withMeta(['currency' => $currency]);
 
         $this
-            ->resolveUsing(function ($value) use($currency) {
+            ->resolveUsing(function ($value) use ($currency) {
                 return $this->inMinorUnits ? $value / $this->minorUnit($currency) : $value;
             })
-            ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) use($currency) {
+            ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) use ($currency) {
                 $value = $request[$requestAttribute];
 
                 if ($this->inMinorUnits) {
