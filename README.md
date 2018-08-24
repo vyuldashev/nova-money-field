@@ -26,7 +26,6 @@ public function fields(Request $request)
     return [
         // ...
         Money::make('Balance'),
-        // ...
     ];
 }
 ```
