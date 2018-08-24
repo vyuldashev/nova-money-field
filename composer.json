@@ -1,0 +1,30 @@
+{
+  "name": "vyuldashev/nova-money-field",
+  "description": "A Laravel Nova field.",
+  "keywords": [
+    "laravel",
+    "nova"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=7.1.0",
+    "moneyphp/money": "^3.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Vyuldashev\\NovaMoneyField\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Vyuldashev\\NovaMoneyField\\FieldServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
