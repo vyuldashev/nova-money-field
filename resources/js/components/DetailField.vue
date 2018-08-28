@@ -9,8 +9,7 @@
         </div>
         <div class="w-3/4 py-4">
             <slot name="value">
-                <p v-if="field.value" class="text-90">{{ formattedValue }}</p>
-                <p v-else>&mdash;</p>
+                <p class="text-90">{{ formattedValue }}</p>
             </slot>
         </div>
     </div>
