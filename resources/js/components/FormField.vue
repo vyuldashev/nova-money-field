@@ -1,12 +1,16 @@
 <template>
     <default-field :field="field">
         <template slot="field">
-            <input :id="field.name" type="text"
-                class="w-full form-control form-input form-input-bordered"
-                :class="errorClasses"
-                :placeholder="field.name"
-                v-model="value"
-            />
+            <div class="flex items-center">
+                <span class="mr-1">{{ field.currency }}</span>
+            
+                <input :id="field.name" type="text"
+                    class="w-full form-control form-input form-input-bordered flex-1"
+                    :class="errorClasses"
+                    :placeholder="field.name"
+                    v-model="value"
+                />
+            </div>
 
             <p v-if="hasError" class="my-2 text-danger">
                 {{ firstError }}
