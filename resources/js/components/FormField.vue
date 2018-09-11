@@ -1,12 +1,13 @@
 <template>
     <default-field :field="field">
         <template slot="field">
-            <div class="flex flex-wrap items-stretch w-full mb-4 relative">
+            <div class="flex flex-wrap items-stretch w-full relative h-full">
                 <div class="flex -mr-px">
-                    <span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm">{{ field.currency }}</span>
+                    <span class="flex items-center bg-30 rounded-r-none px-3 whitespace-no-wrap text-sm form-control form-input-bordered">{{ field.currency }}</span>
                 </div>
                 <input :id="field.name" type="text"
-                    class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow"
+                    class="flex-1 relative focus:border-blue focus:shadow form-control form-input form-input-bordered"
+                    style="border-top-left-radius: 0;border-bottom-left-radius: 0;"
                     :class="errorClasses"
                     :placeholder="field.name"
                     v-model="value"
