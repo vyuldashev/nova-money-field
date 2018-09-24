@@ -22,7 +22,10 @@ class Money extends Number
     {
         parent::__construct($name, $attribute, $resolveCallback);
 
-        $this->withMeta(['currency' => $currency]);
+        $this->withMeta([
+            'currency' => $currency,
+            'subUnits' => $this->subunits($currency),
+        ]);
 
         $this
             ->resolveUsing(function ($value) use ($currency) {
@@ -54,10 +57,13 @@ class Money extends Number
         return $this->withMeta(['locale' => $locale]);
     }
 
+    public function subUnits(string $currency)
+    {
+        return (new ISOCurrencies())->subunitFor(new Currency($currency));
+    }
+
     public function minorUnit($currency)
     {
-        $subunit = (new ISOCurrencies())->subunitFor(new Currency($currency));
-
-        return 10 ** $subunit;
+        return 10 ** $this->subUnits($currency);
     }
 }
