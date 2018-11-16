@@ -5,6 +5,8 @@ namespace Vyuldashev\NovaMoneyField;
 use Money\Currency;
 use Laravel\Nova\Fields\Number;
 use Money\Currencies\ISOCurrencies;
+use Money\Currencies\BitcoinCurrencies;
+use Money\Currencies\AggregateCurrencies;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Money extends Number
@@ -59,7 +61,10 @@ class Money extends Number
 
     public function subUnits(string $currency)
     {
-        return (new ISOCurrencies())->subunitFor(new Currency($currency));
+        return (new AggregateCurrencies([
+            new ISOCurrencies(),
+            new BitcoinCurrencies(),
+        ]))->subunitFor(new Currency($currency));
     }
 
     public function minorUnit($currency)
