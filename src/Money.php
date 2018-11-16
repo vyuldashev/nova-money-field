@@ -2,11 +2,11 @@
 
 namespace Vyuldashev\NovaMoneyField;
 
-use Money\Currencies\AggregateCurrencies;
-use Money\Currencies\BitcoinCurrencies;
 use Money\Currency;
 use Laravel\Nova\Fields\Number;
 use Money\Currencies\ISOCurrencies;
+use Money\Currencies\AggregateCurrencies;
+use Money\Currencies\BitcoinCurrencies;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Money extends Number
