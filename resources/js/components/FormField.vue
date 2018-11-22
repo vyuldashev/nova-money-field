@@ -5,11 +5,10 @@
                 <div class="flex -mr-px">
                     <span class="flex items-center bg-30 rounded-r-none px-3 whitespace-no-wrap text-sm form-control form-input-bordered">{{ field.currency }}</span>
                 </div>
-                <input :id="field.name" type="text"
+                <input :id="field.attribute" type="number"
                        class="flex-1 relative focus:border-blue focus:shadow form-control form-input form-input-bordered"
                        style="border-top-left-radius: 0;border-bottom-left-radius: 0;"
-                       :class="errorClasses"
-                       :placeholder="field.name"
+                       v-bind="extraAttributes"
                        v-model="value"
                 />
             </div>
@@ -27,7 +26,33 @@
         mixins: [FormField, HandlesValidationErrors],
 
         props: ['resourceName', 'resourceId', 'field'],
+        
+        computed: {
+            defaultAttributes() {
+                return {
+                    type: this.field.type || 'number',
+                    min: this.field.min,
+                    max: this.field.max,
+                    step: this.field.step,
+                    pattern: this.field.pattern,
+                    placeholder: this.field.placeholder || this.field.name,
+                    class: this.errorClasses,
+                }
+            },
 
+            extraAttributes() {
+                const attrs = this.field.extraAttributes
+
+                return {
+                    // Leave the default attributes even though we can now specify
+                    // whatever attributes we like because the old number field still
+                    // uses the old field attributes
+                    ...this.defaultAttributes,
+                    ...attrs,
+                }
+            },
+        },
+    
         methods: {
             /*
              * Set the initial, internal value for the field.
