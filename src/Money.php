@@ -29,6 +29,8 @@ class Money extends Number
             'subUnits' => $this->subunits($currency),
         ]);
 
+        $this->step(1 / $this->minorUnit($currency));
+
         $this
             ->resolveUsing(function ($value) use ($currency) {
                 return $this->inMinorUnits ? $value / $this->minorUnit($currency) : $value;
