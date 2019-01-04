@@ -1,7 +1,7 @@
 <template>
     <default-field :field="field">
         <template slot="field">
-            <div class="flex flex-wrap items-stretch w-full relative h-full">
+            <div class="flex flex-wrap items-stretch w-full relative">
                 <div class="flex -mr-px">
                     <span class="flex items-center bg-30 rounded-r-none px-3 whitespace-no-wrap text-sm form-control form-input-bordered">{{ field.currency }}</span>
                 </div>
