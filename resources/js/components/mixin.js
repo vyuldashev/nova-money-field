@@ -1,7 +1,10 @@
 export default {
     computed: {
         formattedValue() {
-            if (this.field.value === undefined) return '';
+            if (this.field.value === undefined || this.field.value === null) {
+                return '-';
+            }
+
             return this.field.value.toLocaleString(this.field.locale, {
                 style: 'currency',
                 currency: this.field.currency,
