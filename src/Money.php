@@ -33,12 +33,15 @@ class Money extends Number
 
         $this
             ->resolveUsing(function ($value) use ($currency) {
+                if(is_null($value))
+                    return null;
+
                 return $this->inMinorUnits ? $value / $this->minorUnit($currency) : (float) $value;
             })
             ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) use ($currency) {
                 $value = $request[$requestAttribute];
 
-                if ($this->inMinorUnits) {
+                if ($this->inMinorUnits && !is_null($value)) {
                     $value *= $this->minorUnit($currency);
                 }
 
