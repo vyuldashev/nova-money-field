@@ -58,7 +58,7 @@
              * Set the initial, internal value for the field.
              */
             setInitialValue() {
-                this.value = this.field.value || 0
+                this.value = (typeof this.field.value !== 'undefined') ? this.field.value : null;
             },
 
             /**
