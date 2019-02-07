@@ -77,7 +77,9 @@
         },
 
         mounted() {
-            this.value = this.value ? parseFloat(this.value).toFixed(this.field.subUnits) : '';
+            this.value = (this.value || this.value === 0)
+                ? parseFloat(this.value).toFixed(this.field.subUnits)
+                : '';
         },
     }
 </script>
