@@ -58,14 +58,14 @@
              * Set the initial, internal value for the field.
              */
             setInitialValue() {
-                this.value = (typeof this.field.value !== 'undefined') ? this.field.value : ''
+                this.value = (this.field.value || this.field.value === '') ? this.field.value : 0;
             },
 
             /**
              * Fill the given FormData object with the field's internal value.
              */
             fill(formData) {
-                formData.append(this.field.attribute, this.value || '')
+                formData.append(this.field.attribute, (this.value || this.value === '') ? this.value : 0)
             },
 
             /**
