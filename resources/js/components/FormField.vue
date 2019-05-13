@@ -26,7 +26,7 @@
         mixins: [FormField, HandlesValidationErrors],
 
         props: ['resourceName', 'resourceId', 'field'],
-        
+
         computed: {
             defaultAttributes() {
                 return {
@@ -52,20 +52,20 @@
                 }
             },
         },
-    
+
         methods: {
             /*
              * Set the initial, internal value for the field.
              */
             setInitialValue() {
-                this.value = this.field.value || 0
+                this.value = (this.field.value || this.field.value === '') ? this.field.value : 0;
             },
 
             /**
              * Fill the given FormData object with the field's internal value.
              */
             fill(formData) {
-                formData.append(this.field.attribute, this.value || 0)
+                formData.append(this.field.attribute, (this.value || this.value === '') ? this.value : 0)
             },
 
             /**
@@ -77,7 +77,9 @@
         },
 
         mounted() {
-            this.value = parseFloat(this.value).toFixed(this.field.subUnits);
+            this.value = (this.value || this.value === 0)
+                ? parseFloat(this.value).toFixed(this.field.subUnits)
+                : '';
         },
     }
 </script>
