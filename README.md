@@ -48,3 +48,11 @@ If you store money values in database in minor units use `storedInMinorUnits` me
 Money::make('Balance', 'EUR')->storedInMinorUnits(),
 ```
 
+If you need to use a name that doesn't convert to the column name (eg 'Balance' as name and `remaining_balance` as column) you can pass this as the 3rd argument to the make/constructor. 
+
+Please Note: that this, along with all field column names, should be present and usable within your model class else you may encounter SQL errors.
+
+```php
+Money::make('Balance', 'EUR', 'remaining_balance'),
+```
+
