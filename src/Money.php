@@ -2,12 +2,12 @@
 
 namespace Vyuldashev\NovaMoneyField;
 
-use Money\Currency;
 use Laravel\Nova\Fields\Number;
-use Money\Currencies\ISOCurrencies;
-use Money\Currencies\BitcoinCurrencies;
-use Money\Currencies\AggregateCurrencies;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Money\Currencies\AggregateCurrencies;
+use Money\Currencies\BitcoinCurrencies;
+use Money\Currencies\ISOCurrencies;
+use Money\Currency;
 
 class Money extends Number
 {
@@ -32,7 +32,11 @@ class Money extends Number
         $this->step(1 / $this->minorUnit($currency));
 
         $this
-            ->resolveUsing(function ($value) use ($currency) {
+            ->resolveUsing(function ($value) use ($currency, $resolveCallback) {
+                if ($resolveCallback !== null) {
+                    $value = call_user_func_array($resolveCallback, func_get_args());
+                }
+
                 return $this->inMinorUnits ? $value / $this->minorUnit($currency) : (float) $value;
             })
             ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) use ($currency) {
