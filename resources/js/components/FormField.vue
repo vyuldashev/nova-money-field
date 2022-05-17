@@ -1,12 +1,12 @@
 <template>
-    <DefaultField :field="field">
+    <DefaultField :field="currentField">
         <template #field>
             <div class="flex flex-wrap items-stretch w-full relative">
                 <div class="flex -mr-px">
-                    <span class="flex items-center bg-gray-100 rounded rounded-r-none px-3 whitespace-no-wrap text-sm form-control form-input-bordered">{{ field.currency }}</span>
+                    <span class="flex items-center bg-gray-100 rounded rounded-r-none px-3 whitespace-no-wrap text-sm form-control form-input-bordered">{{ currentField.currency }}</span>
                 </div>
                 <input
-                    :id="field.attribute"
+                    :id="currentField.attribute"
                     type="number"
                     class="flex-1 relative focus:border-blue focus:shadow form-control form-input form-input-bordered rounded-l-none"
                     v-bind="extraAttributes"
@@ -21,28 +21,28 @@
 </template>
 
 <script>
-    import {FormField, HandlesValidationErrors} from 'laravel-nova'
+    import {DependentFormField, HandlesValidationErrors} from 'laravel-nova'
 
     export default {
-        mixins: [FormField, HandlesValidationErrors],
+        mixins: [DependentFormField, HandlesValidationErrors],
 
         props: ['resourceName', 'resourceId', 'field'],
 
         computed: {
             defaultAttributes() {
                 return {
-                    type: this.field.type || 'number',
-                    min: this.field.min,
-                    max: this.field.max,
-                    step: this.field.step,
-                    pattern: this.field.pattern,
-                    placeholder: this.field.placeholder || this.field.name,
+                    type: this.currentField.type || 'number',
+                    min: this.currentField.min,
+                    max: this.currentField.max,
+                    step: this.currentField.step,
+                    pattern: this.currentField.pattern,
+                    placeholder: this.currentField.placeholder || this.currentField.name,
                     class: this.errorClasses,
                 }
             },
 
             extraAttributes() {
-                const attrs = this.field.extraAttributes
+                const attrs = this.currentField.extraAttributes
 
                 return {
                     // Leave the default attributes even though we can now specify
@@ -59,14 +59,14 @@
              * Set the initial, internal value for the field.
              */
             setInitialValue() {
-                this.value = this.field.value || 0
+                this.value = this.currentField.value || 0
             },
 
             /**
              * Fill the given FormData object with the field's internal value.
              */
             fill(formData) {
-                formData.append(this.field.attribute, this.value || 0)
+                formData.append(this.currentField.attribute, this.value || 0)
             },
 
             /**
@@ -78,7 +78,7 @@
         },
 
         mounted() {
-            this.value = parseFloat(this.value).toFixed(this.field.subUnits);
+            this.value = parseFloat(this.value).toFixed(this.currentField.subUnits);
         },
     }
 </script>
