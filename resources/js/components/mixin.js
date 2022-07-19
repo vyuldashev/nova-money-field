@@ -1,11 +1,15 @@
 export default {
     computed: {
+        fieldValue() {
+            return this.field.displayedAs || this.field.value
+        },
+
         formattedValue() {
-            if (this.field.value === undefined || this.field.value === null) {
+            if (this.fieldValue === undefined || this.fieldValue === null) {
                 return '-';
             }
 
-            return this.field.value.toLocaleString(this.field.locale, {
+            return this.fieldValue.toLocaleString(this.field.locale, {
                 style: 'currency',
                 currency: this.field.currency,
                 minimumFractionDigits: 2,

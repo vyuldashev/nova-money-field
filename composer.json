@@ -3,11 +3,13 @@
   "description": "A Laravel Nova field for Money.",
   "keywords": [
     "laravel",
-    "nova"
+    "nova",
+    "nova-4"
   ],
   "license": "MIT",
   "require": {
-    "php": ">=7.1.0",
+    "php": "^8.0",
+    "laravel/nova": "^4.0",
     "moneyphp/money": "^3.1|^4.0"
   },
   "autoload": {

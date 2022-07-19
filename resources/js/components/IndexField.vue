@@ -1,5 +1,5 @@
 <template>
-    <span>{{ formattedValue }}</span>
+    <div>{{ formattedValue }}</div>
 </template>
 
 <script>
