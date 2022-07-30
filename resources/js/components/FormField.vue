@@ -1,30 +1,33 @@
 <template>
-    <DefaultField :field="currentField">
+    <DefaultField
+        :field="currentField"
+        :errors="errors"
+        :show-help-text="showHelpText"
+    >
         <template #field>
             <div class="flex flex-wrap items-stretch w-full relative">
                 <div class="flex -mr-px">
                     <span class="flex items-center bg-gray-100 rounded rounded-r-none px-3 whitespace-no-wrap text-sm form-control form-input-bordered">{{ currentField.currency }}</span>
                 </div>
                 <input
-                    :id="currentField.attribute"
+                    v-bind="extraAttributes"
                     type="number"
                     class="flex-1 relative focus:border-blue focus:shadow form-control form-input form-input-bordered rounded-l-none"
-                    v-bind="extraAttributes"
-                    v-model="value"
+                    @input="handleChange"
+                    :value="value"
+                    :id="currentField.uniqueKey"
+                    :disabled="currentlyIsReadonly"
                 />
             </div>
-            <p v-if="hasError" class="my-2 text-danger">
-                {{ firstError }}
-            </p>
         </template>
     </DefaultField>
 </template>
 
 <script>
-    import {DependentFormField, HandlesValidationErrors} from 'laravel-nova'
+    import { DependentFormField, HandlesValidationErrors } from 'laravel-nova'
 
     export default {
-        mixins: [DependentFormField, HandlesValidationErrors],
+        mixins: [HandlesValidationErrors, DependentFormField],
 
         props: ['resourceName', 'resourceId', 'field'],
 
@@ -55,26 +58,26 @@
         },
 
         methods: {
+
             /*
-             * Set the initial, internal value for the field.
+             * Set the initial value for the field
              */
             setInitialValue() {
-                this.value = this.currentField.value || 0
+                this.value = !(
+                    this.currentField.value === undefined ||
+                    this.currentField.value === null
+                )
+                    ? (this.currentField.value || 0)
+                    : (this.value || 0)
             },
 
             /**
              * Fill the given FormData object with the field's internal value.
              */
             fill(formData) {
-                formData.append(this.currentField.attribute, this.value || 0)
+                this.fillIfVisible(formData, this.currentField.attribute, this.value || 0)
             },
 
-            /**
-             * Update the field's internal value.
-             */
-            handleChange(value) {
-                this.value = value
-            }
         },
 
         mounted() {
