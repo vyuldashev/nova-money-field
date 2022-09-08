@@ -1,4 +1,4 @@
-Nova.booting((Vue, router) => {
+Nova.booting((Vue, store) => {
     Vue.component('index-nova-money-field', require('./components/IndexField').default);
     Vue.component('detail-nova-money-field', require('./components/DetailField').default);
     Vue.component('form-nova-money-field', require('./components/FormField').default);
