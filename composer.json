@@ -28,9 +28,6 @@
   "config": {
     "sort-packages": true
   },
-  "repositories": [
-    { "type": "composer", "url": "https://nova.laravel.com"}
-  ],
   "minimum-stability": "dev",
   "prefer-stable": true
 }

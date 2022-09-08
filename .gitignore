@@ -2,7 +2,6 @@
 /vendor
 /node_modules
 package-lock.json
-auth.json
 composer.phar
 composer.lock
 phpunit.xml
