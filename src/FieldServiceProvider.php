@@ -1,10 +1,10 @@
 <?php
 
-namespace Vyuldashev\NovaMoneyField;
+namespace Workup\NovaMoneyField;
 
-use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
+use Laravel\Nova\Events\ServingNova;
+use Illuminate\Support\ServiceProvider;
 
 class FieldServiceProvider extends ServiceProvider
 {
@@ -16,7 +16,7 @@ class FieldServiceProvider extends ServiceProvider
     public function boot()
     {
         Nova::serving(static function (ServingNova $event) {
-            Nova::script('nova-money-field', __DIR__.'/../dist/js/field.js');
+            Nova::script('nova-money-field', __DIR__ . '/../dist/js/field.js');
         });
     }
 

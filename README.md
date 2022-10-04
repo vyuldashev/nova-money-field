@@ -19,7 +19,7 @@ In resource:
 
 ```php
 // ...
-use Vyuldashev\NovaMoneyField\Money;
+use Workup\NovaMoneyField\Money;
 
 public function fields(Request $request)
 {

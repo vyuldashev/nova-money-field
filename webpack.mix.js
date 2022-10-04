@@ -1,10 +1,9 @@
 let mix = require('laravel-mix')
 
-require('./nova.mix')
-
-mix
-    .setPublicPath('dist')
-    .js('resources/js/field.js', 'js')
-    .sass('resources/sass/field.scss', 'css')
-    .vue({ version: 3 })
-    .nova('vyuldashev/nova-money-field')
+mix.js('resources/js/field.js', 'dist/js')
+   .sass('resources/sass/field.scss', 'dist/css')
+    .webpackConfig({
+        resolve: {
+            symlinks: false
+        }
+    })

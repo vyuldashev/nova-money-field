@@ -1,51 +1,47 @@
 <template>
-    <DefaultField
-        :field="currentField"
-        :errors="errors"
-        :show-help-text="showHelpText"
-    >
-        <template #field>
+    <default-field :field="field">
+        <template slot="field">
             <div class="flex flex-wrap items-stretch w-full relative">
                 <div class="flex -mr-px">
-                    <span class="flex items-center bg-gray-100 rounded rounded-r-none px-3 whitespace-no-wrap text-sm form-control form-input-bordered">{{ currentField.currency }}</span>
+                    <span class="flex items-center bg-30 rounded-r-none px-3 whitespace-no-wrap text-sm form-control form-input-bordered">{{ field.currency }}</span>
                 </div>
-                <input
-                    v-bind="extraAttributes"
-                    type="number"
-                    class="flex-1 relative focus:border-blue focus:shadow form-control form-input form-input-bordered rounded-l-none"
-                    @input="handleChange"
-                    :value="value"
-                    :id="currentField.uniqueKey"
-                    :disabled="currentlyIsReadonly"
+                <input :id="field.attribute" type="number"
+                       class="flex-1 relative focus:border-blue focus:shadow form-control form-input form-input-bordered"
+                       style="border-top-left-radius: 0;border-bottom-left-radius: 0;"
+                       v-bind="extraAttributes"
+                       v-model="value"
                 />
             </div>
+            <p v-if="hasError" class="my-2 text-danger">
+                {{ firstError }}
+            </p>
         </template>
-    </DefaultField>
+    </default-field>
 </template>
 
 <script>
-    import { DependentFormField, HandlesValidationErrors } from 'laravel-nova'
+    import {FormField, HandlesValidationErrors} from 'laravel-nova'
 
     export default {
-        mixins: [HandlesValidationErrors, DependentFormField],
+        mixins: [FormField, HandlesValidationErrors],
 
         props: ['resourceName', 'resourceId', 'field'],
-
+        
         computed: {
             defaultAttributes() {
                 return {
-                    type: this.currentField.type || 'number',
-                    min: this.currentField.min,
-                    max: this.currentField.max,
-                    step: this.currentField.step,
-                    pattern: this.currentField.pattern,
-                    placeholder: this.currentField.placeholder || this.currentField.name,
+                    type: this.field.type || 'number',
+                    min: this.field.min,
+                    max: this.field.max,
+                    step: this.field.step,
+                    pattern: this.field.pattern,
+                    placeholder: this.field.placeholder || this.field.name,
                     class: this.errorClasses,
                 }
             },
 
             extraAttributes() {
-                const attrs = this.currentField.extraAttributes
+                const attrs = this.field.extraAttributes
 
                 return {
                     // Leave the default attributes even though we can now specify
@@ -56,32 +52,32 @@
                 }
             },
         },
-
+    
         methods: {
-
             /*
-             * Set the initial value for the field
+             * Set the initial, internal value for the field.
              */
             setInitialValue() {
-                this.value = !(
-                    this.currentField.value === undefined ||
-                    this.currentField.value === null
-                )
-                    ? (this.currentField.value || 0)
-                    : (this.value || 0)
+                this.value = this.field.value || 0
             },
 
             /**
              * Fill the given FormData object with the field's internal value.
              */
             fill(formData) {
-                this.fillIfVisible(formData, this.currentField.attribute, this.value || 0)
+                formData.append(this.field.attribute, this.value || 0)
             },
 
+            /**
+             * Update the field's internal value.
+             */
+            handleChange(value) {
+                this.value = value
+            }
         },
 
         mounted() {
-            this.value = parseFloat(this.value).toFixed(this.currentField.subUnits);
+            this.value = parseFloat(this.value).toFixed(this.field.subUnits);
         },
     }
 </script>
