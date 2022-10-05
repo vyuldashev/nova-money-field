@@ -18,34 +18,32 @@ class Money extends Number
      */
     public $component = 'nova-money-field';
 
-    public bool $inMinorUnits;
+    public $inMinorUnits;
 
-    public string $currency = 'EUR';
-
-    public function __construct($name, $attribute = null, $resolveCallback = null)
+    public function __construct($name, $currency = 'USD', $attribute = null, $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
 
         $this->withMeta([
-            'currency' => $this->currency,
-            'subUnits' => $this->subunits($this->currency),
+            'currency' => $currency,
+            'subUnits' => $this->subunits($currency),
         ]);
 
-        $this->step(1 / $this->minorUnit($this->currency));
+        $this->step(1 / $this->minorUnit($currency));
 
         $this
-            ->resolveUsing(function ($value) use ($resolveCallback) {
+            ->resolveUsing(function ($value) use ($currency, $resolveCallback) {
                 if ($resolveCallback !== null) {
                     $value = call_user_func_array($resolveCallback, func_get_args());
                 }
 
-                return $this->inMinorUnits ? $value / $this->minorUnit($this->currency) : (float) $value;
+                return $this->inMinorUnits ? $value / $this->minorUnit($currency) : (float) $value;
             })
-            ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) {
+            ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) use ($currency) {
                 $value = $request[$requestAttribute];
 
                 if ($this->inMinorUnits) {
-                    $value *= $this->minorUnit($this->currency);
+                    $value *= $this->minorUnit($currency);
                 }
 
                 $model->{$attribute} = $value;
@@ -58,16 +56,6 @@ class Money extends Number
     public function storedInMinorUnits()
     {
         $this->inMinorUnits = true;
-
-        return $this;
-    }
-
-    /**
-     * The currency to use
-     */
-    public function currency(?string $currency = 'EUR')
-    {
-        $this->currency = $currency;
 
         return $this;
     }
