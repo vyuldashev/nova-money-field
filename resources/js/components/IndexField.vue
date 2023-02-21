@@ -1,5 +1,8 @@
 <template>
-    <span>{{ formattedValue }}</span>
+    <div :class="`text-${field.textAlign}`">
+        <span v-if="field.value" class="whitespace-no-wrap">{{ formattedValue }}</span>
+        <span v-else>&mdash;</span>
+    </div>
 </template>
 
 <script>
