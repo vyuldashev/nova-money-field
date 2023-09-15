@@ -1,6 +1,6 @@
 <?php
 
-namespace Workup\NovaMoneyField;
+namespace Workup\Nova\MoneyField;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;

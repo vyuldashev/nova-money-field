@@ -1,18 +1,9 @@
 <template>
-    <div class="flex border-b border-40">
-        <div class="w-1/4 py-4">
-            <slot>
-                <h4 class="font-normal text-80">
-                    {{ field.name }}
-                </h4>
-            </slot>
-        </div>
-        <div class="w-3/4 py-4">
-            <slot name="value">
-                <p class="text-90">{{ formattedValue }}</p>
-            </slot>
-        </div>
-    </div>
+    <PanelItem :field="field">
+        <template #value>
+            <p class="text-90">{{ formattedValue }}</p>
+        </template>
+    </PanelItem>
 </template>
 
 <script>

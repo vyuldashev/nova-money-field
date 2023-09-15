@@ -1,6 +1,6 @@
 <?php
 
-namespace Workup\NovaMoneyField;
+namespace Workup\Nova\MoneyField;
 
 use Money\Currency;
 use Laravel\Nova\Fields\Number;
@@ -37,6 +37,9 @@ class Money extends Number
                     $value = call_user_func_array($resolveCallback, func_get_args());
                 }
 
+                return $this->inMinorUnits ? $value / $this->minorUnit($currency) : (float) $value;
+            })
+            ->displayUsing(function ($value) use ($currency) {
                 return $this->inMinorUnits ? $value / $this->minorUnit($currency) : (float) $value;
             })
             ->fillUsing(function (NovaRequest $request, $model, $attribute, $requestAttribute) use ($currency) {

@@ -1,7 +1,10 @@
 let mix = require('laravel-mix')
 
+require('./nova.mix')
+
 mix
     .setPublicPath('dist')
     .js('resources/js/field.js', 'js')
-    .vue()
     .sass('resources/sass/field.scss', 'css')
+    .vue({ version: 3 })
+    .nova('workup/nova-money-field')

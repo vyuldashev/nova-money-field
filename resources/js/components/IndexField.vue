@@ -1,7 +1,7 @@
 <template>
     <div :class="`text-${field.textAlign}`">
-        <span v-if="field.value" class="whitespace-no-wrap">{{ formattedValue }}</span>
-        <span v-else>&mdash;</span>
+        <div v-if="field.value" class="whitespace-no-wrap">{{ formattedValue }}</div>
+        <div v-else>&mdash;</div>
     </div>
 </template>
 
