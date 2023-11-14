@@ -9,6 +9,9 @@ use Money\Currencies\BitcoinCurrencies;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 
+/**
+ * @method static static make(string $name, string $currency, string|\Closure|callable|object|null $attribute = null, (callable(mixed, mixed, ?string):(mixed))|null $resolveCallback = null)
+ */
 class Money extends Number
 {
     /**
