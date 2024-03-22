@@ -6,13 +6,13 @@
     >
         <template #field>
             <div class="flex flex-wrap items-stretch w-full relative">
-                <div class="flex -mr-px">
-                    <span class="flex items-center bg-gray-100 rounded rounded-r-none px-3 whitespace-no-wrap text-sm form-control form-input-bordered">{{ currentField.currency }}</span>
+                <div class="flex">
+                    <span class="flex items-center bg-gray-100 rounded rounded-r-none px-3 whitespace-no-wrap text-sm form-control form-input form-control-bordered">{{ currentField.currency }}</span>
                 </div>
                 <input
                     v-bind="extraAttributes"
                     type="number"
-                    class="flex-1 relative focus:border-blue focus:shadow form-control form-input form-input-bordered rounded-l-none"
+                    class="flex-1 relative focus:border-blue focus:shadow form-control form-input form-control-bordered rounded-l-none"
                     @input="handleChange"
                     :value="value"
                     :id="currentField.uniqueKey"
